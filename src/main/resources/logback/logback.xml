@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+
+    <contextName>tzg</contextName>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                <![CDATA[
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                ]]>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file-debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                <![CDATA[
+                    logs/backup/%d/debug/debug.%d.%i.log.gz
+                ]]>
+            </fileNamePattern>
+            <!-- log file size control -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- save 90 days work -->
+            <MaxHistory>90</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                <![CDATA[
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                ]]>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- file output. Level: INFO. -->
+    <appender name="file-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/info.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                <![CDATA[
+                    logs/backup/%d/info/debug.%d.%i.log.gz
+                ]]>
+            </fileNamePattern>
+            <!-- log file size control -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>90</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                <![CDATA[
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                ]]>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file-warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/warn.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                <![CDATA[
+                    logs/backup/%d/warn/warn.%d.%i.log.gz
+                ]]>
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>90</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                <![CDATA[
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                ]]>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                <![CDATA[
+                    logs/backup/%d/error/error.%d.%i.log.gz
+                ]]>
+            </fileNamePattern>
+            <!-- log file size control -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>90</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                <![CDATA[
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                ]]>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- file output. Level: ALL -->
+    <appender name="file-all" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/all.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                <![CDATA[
+                    logs/backup/%d/all/all.%d.%i.log.gz
+                ]]>
+            </fileNamePattern>
+            <!-- log file size control -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>90</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                <![CDATA[
+                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                ]]>
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ch.qos.logback.classic" level="${log.root.level:-INFO}"/>
+    <logger name="in ch.qos.logback.core.joran.action.AppenderRefAction" level="${log.root.level:-INFO}"/>
+
+    <logger name="java.sql" level="${log.root.level:-INFO}"/>
+    <logger name="jdbc" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.hibernate" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.cache" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.sql" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.engine" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.type" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.util" level="${log.root.level:-INFO}"/>
+    <logger name="org.hibernate.cfg" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.springframework" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.apache" level="${log.root.level:-INFO}"/>
+    <logger name="org.apache.shiro" level="${log.root.level:-INFO}"/>
+    <logger name="org.apache.mina" level="${log.root.level:-INFO}"/>
+
+    <logger name="com.danga.MemCached" level="${log.root.level:-INFO}"/>
+    <logger name="net.sf.ehcache" level="${log.root.level:-INFO}"/>
+    <logger name="freemarker" level="${log.root.level:-INFO}"/>
+
+    <logger name="org.eclipse.jetty" level="${log.root.level:-INFO}"/>
+    <logger name="com.opensymphony" level="${log.root.level:-INFO}"/>
+    <logger name="net.sf" level="${log.root.level:-INFO}"/>
+
+    <logger name="druid.sql.Statement" level="${log.root.level:-INFO}"/>
+    <logger name="com.alibaba.dubbo" level="${log.root.level:-INFO}"/>
+
+    <root level="${log.root.level:-INFO}">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="file-all"/>
+        <appender-ref ref="file-debug"/>
+        <appender-ref ref="file-info"/>
+        <appender-ref ref="file-warn"/>
+        <appender-ref ref="file-error"/>
+    </root>
+
+</configuration>

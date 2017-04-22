@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="txManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
+
+        <property name="url" value="#{props['jdbc.url']}"/>
+        <property name="username" value="#{props['jdbc.username']}"/>
+        <property name="password" value="#{props['jdbc.password']}"/>
+
+        <!-- ====================================================================================== -->
+        <!-- 配置初始化大小、最小、最大                                                                -->
+        <!--                                                                                        -->
+        <!-- initialSize: 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或第一次getConnection时 -->
+        <!--     minIdle: 连接池最小空闲连接数                                                        -->
+        <!--   maxActive: 连接池最大使用连接数                                                        -->
+        <!--     maxWait: 获取连接等待超时的时间，单位毫秒                                              -->
+        <!--                                                                                        -->
+        <!-- ====================================================================================== -->
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxWait" value="60000"/>
+
+        <!-- ====================================================================================== -->
+        <!-- 间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒，有两个含义                          -->
+        <!--                                                                                        -->
+        <!-- Destroy线程会检测连接的间隔时间                                                           -->
+        <!-- testWhileIdle的判断依据，详细看下面testWhileIdle属性说明                                   -->
+        <!-- ====================================================================================== -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <!-- ====================================================================================== -->
+        <!-- 检测属性设置                                                                             -->
+        <!--                                                                                        -->
+        <!-- validationQuery: 用来检测连接是否有效的sql。value为一个sql语句；如果为null，那么textOnBorrow -->
+        <!--                  testOnReturn、testWhileIdle都不会起作用                                 -->
+        <!--                                                                                        -->
+        <!--    testOnBorrow: 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能        -->
+        <!--    testOnReturn: 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能        -->
+        <!--   testWhileIdle: 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大 -->
+        <!--                  于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效     -->
+        <!--                                                                                        -->
+        <!-- ====================================================================================== -->
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="true"/>
+
+        <!-- ====================================================================================== -->
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小                                               -->
+        <!--                                                                                        -->
+        <!-- poolPreparedStatements: 是否缓存PreparedStatement，也就是PSCache。PSCache对支持游标的数据库 -->
+        <!--                         性能提升巨大，比如说oracle。在mysql5.5以下的版本中没有PSCache功能，  -->
+        <!--                         建议关闭掉。作者在5.5版本中使用PSCache，通过监控界面发现PSCache有缓存 -->
+        <!--                         命中率记录，应该是支持PSCache。但是这里的建议是，如果用oracle，则配置 -->
+        <!--                         为true，mysql可以配置为false。分库分表较多的数据库，建议配置为false  -->
+        <!--                                                                                        -->
+        <!-- ====================================================================================== -->
+        <property name="poolPreparedStatements" value="false"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+
+        <!-- 合并多个DruidDataSource的监控数据 -->
+        <property name="useGlobalDataSourceStat" value="true"/>
+
+        <!-- ====================================================================================== -->
+        <!-- 清除无用连接                                                                            -->
+        <!--                                                                                        -->
+        <!--        removeAbandoned： 自动清除无用连接                                                -->
+        <!-- removeAbandonedTimeout： 清除无用连接的等待时间。单位秒。关闭长时间不使用的连接               -->
+        <!--           logAbandoned： 关闭无用连接时输出日志                                           -->
+        <!-- ====================================================================================== -->
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <property name="logAbandoned" value="true"/>
+
+        <property name="filters" value="config"/>
+
+        <property name="proxyFilters">
+            <list>
+                <ref bean="stat-filter"/>
+                <ref bean="log-filter"/>
+                <ref bean="wall-filter"/>
+            </list>
+        </property>
+
+        <property name="connectionProperties"
+                  value="clientEncoding=UTF-8;config.decrypt=true;config.decrypt.key=#{props['jdbc.publicKey']}"/>
+    </bean>
+
+    <!-- =========================================================================== -->
+    <!-- 统计过滤器配置                                                                -->
+    <!--                                                                             -->
+    <!--         alias：stat                                                         -->
+    <!--    logSlowSql：打印慢sql                                                     -->
+    <!-- slowSqlMillis: 慢sql界定（单位毫秒）                                          -->
+    <!--                                                                             -->
+    <!--      mergeSql: 参数化SQL（多个语句相同，参数不同）合并，例如：                   -->
+    <!--                                                                             -->
+    <!--                    select * from t where id = 1                             -->
+    <!--                    select * from t where id = 2                             -->
+    <!--                    select * from t where id = 3                             -->
+    <!--                                                                             -->
+    <!--                合并为:                                                       -->
+    <!--                                                                             -->
+    <!--                    select * from t where id = ?                             -->
+    <!--                                                                             -->
+    <!-- =========================================================================== -->
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <property name="logSlowSql" value="true"/>
+        <property name="slowSqlMillis" value="3000"/>
+        <property name="mergeSql" value="true"/>
+    </bean>
+
+    <!-- =========================================================================== -->
+    <!-- 防火墙过滤器配置                                                              -->
+    <!--                                                                             -->
+    <!--           alias：wall                                                       -->
+    <!--          dbType：数据库类型                                                  -->
+    <!--    logViolation: 对被认为是攻击的SQL进行LOG.error输出                          -->
+    <!--  throwException: 对被认为是攻击的SQL抛出SQLExcepton                           -->
+    <!--                                                                             -->
+    <!-- =========================================================================== -->
+    <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+        <property name="dbType" value="mysql"/>
+        <property name="logViolation" value="true"/>
+        <property name="throwException" value="false"/>
+    </bean>
+
+    <!-- =========================================================================== -->
+    <!--                     日志记录JDBC执行SQL的过滤器配置                            -->
+    <!-- =========================================================================== -->
+    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+        <property name="resultSetLogEnabled" value="false"/>
+        <property name="statementExecutableSqlLogEnable" value="true"/>
+        <property name="connectionConnectAfterLogEnabled" value="false"/>
+        <property name="statementLogEnabled" value="false"/>
+        <property name="statementCloseAfterLogEnabled" value="false"/>
+        <property name="statementParameterSetLogEnabled" value="false"/>
+        <property name="statementPrepareAfterLogEnabled" value="false"/>
+        <property name="statementExecuteAfterLogEnabled" value="false"/>
+        <property name="resultSetCloseAfterLogEnabled" value="false"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="${mybatis.mapper.pkg:com.tzg}"/>
+        <property name="markerInterface" value="com.tzg.service.support.proto.ProtoMapper"/>
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mybatis/**/*.xml"/>
+    </bean>
+
+</beans>
