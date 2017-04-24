@@ -16,14 +16,14 @@
     <!-- ====================================================== -->
     <groupId>com.tzg</groupId>
     <artifactId>framework-support</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <!-- ====================================================== -->
     <!--                       项目名和组织                      -->
     <!-- ====================================================== -->
     <url>http://www.tzg.cn</url>
     <name>${project.artifactId}</name>
-    <description>框架支撑层。负责全局工具类库，全局日志，spring、mybatis框架支持等</description>
+    <description>框架支撑层。负责全局日志，spring、mybatis框架支持等</description>
 
     <!-- ====================================================== -->
     <!--                         属性定义                        -->
