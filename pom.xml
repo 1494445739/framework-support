@@ -165,7 +165,7 @@
         <dependency>
             <groupId>com.tzg</groupId>
             <artifactId>tool-support</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
