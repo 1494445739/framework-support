@@ -12,11 +12,18 @@
     <packaging>jar</packaging>
 
     <!-- ====================================================== -->
+    <!--                          父 POM                        -->
+    <!-- ====================================================== -->
+    <parent>
+        <groupId>com.tzg</groupId>
+        <artifactId>framework-core</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- ====================================================== -->
     <!--                         POM GAV                        -->
     <!-- ====================================================== -->
-    <groupId>com.tzg</groupId>
     <artifactId>framework-support</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
 
     <!-- ====================================================== -->
     <!--                       项目名和组织                      -->
@@ -24,13 +31,6 @@
     <url>http://www.tzg.cn</url>
     <name>${project.artifactId}</name>
     <description>框架支撑层。负责全局工具类库，全局日志，spring、mybatis框架支持等</description>
-
-    <!-- ====================================================== -->
-    <!--                         属性定义                        -->
-    <!-- ====================================================== -->
-    <properties>
-        <spring.version>4.1.5.RELEASE</spring.version>
-    </properties>
 
     <!-- ====================================================== -->
     <!--                        开发者介绍                       -->
@@ -51,87 +51,50 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.28</version>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
         </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.0.18</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.19</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-beans</artifactId>
-                    <groupId>org.springframework</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.1.6</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- *************************************************************** -->
-        <!-- mybatis和mybatis spring集成支持                                  -->
-        <!--                                                                 -->
-        <!--   1. mybatis: 自定义版本，改过源码，foreach标签支持字符串形式的数组   -->
-        <!--               ("a","b","c"...)和预处理(防SQL注入),limit支持预处理  -->
-        <!--                                                                 -->
-        <!--   2. mybatis-spring                                             -->
-        <!-- *************************************************************** -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.2.2</version>
         </dependency>
 
         <!-- ************************************************************** -->
@@ -141,86 +104,18 @@
         <dependency>
             <groupId>org.logback-extensions</groupId>
             <artifactId>logback-ext-spring</artifactId>
-            <version>0.1.4</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
         </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.8</version>
         </dependency>
 
         <dependency>
             <groupId>com.tzg</groupId>
             <artifactId>tool-support</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
-
-    <!-- ====================================================== -->
-    <!--                   项目构建（发布源码）                   -->
-    <!-- ====================================================== -->
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <!-- ====================================================== -->
-    <!-- 发布管理                                                -->
-    <!--                                                        -->
-    <!--     1. dev-release  正式版本                            -->
-    <!--     2. dev-snapshot 快照版本                            -->
-    <!-- ====================================================== -->
-    <distributionManagement>
-        <repository>
-            <id>dev-release</id>
-            <name>dev-nexus-release</name>
-            <url>http://dev.maven.com:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>dev-nexus-snapshots</id>
-            <name>dev-nexus-snapshot</name>
-            <url>http://dev.maven.com:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
