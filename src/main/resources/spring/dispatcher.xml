@@ -39,9 +39,7 @@
         </property>
         <property name="defaultViews">
             <list>
-                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView">
-                    <property name="charset" value="UTF-8"/>
-                </bean>
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView"/>
             </list>
         </property>
     </bean>

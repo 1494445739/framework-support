@@ -47,7 +47,6 @@
     <!--                   组件依赖（第三方依赖）                  -->
     <!-- ====================================================== -->
     <dependencies>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -115,7 +114,6 @@
             <groupId>com.tzg</groupId>
             <artifactId>tool-support</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>
