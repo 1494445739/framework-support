@@ -1,6 +1,5 @@
 package com.tzg.framework.support.config.spring;
 
-import com.tzg.framework.support.intel.bootstrap.Bootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -15,7 +14,7 @@ import java.io.IOException;
 
 public class JsonMappingExceptionResolver extends SimpleMappingExceptionResolver {
 
-    private final static Logger logger = LoggerFactory.getLogger( Bootstrap.class );
+    private final static Logger logger = LoggerFactory.getLogger( JsonMappingExceptionResolver.class );
 
     @Override
     protected ModelAndView doResolveException( HttpServletRequest request, HttpServletResponse response,
