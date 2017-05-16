@@ -23,6 +23,11 @@
           class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"
           c:configProfile-ref="configProfile" c:node="mongodb" p:client-ref="zkClient"/>
 
+    <!-- redis zookeeper config -->
+    <bean id="redisConfig"
+          class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"
+          c:configProfile-ref="configProfile" c:node="redis" p:client-ref="zkClient"/>
+
     <bean id="retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
         <!-- 间隔时间基数 -->
         <constructor-arg index="0" value="100"/>
