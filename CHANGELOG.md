@@ -6,6 +6,10 @@
 
 1） Bootstrap。移到component-browser-starter组件中
 
+2017/6/7
+
++ 添加velocity支持
+
 2017/05/15
 
 + 升级为V1.0.2。配合zookeeper组件引入带来的一系列组件升级
