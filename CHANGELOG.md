@@ -5,3 +5,7 @@
 删除：
 
 1） Bootstrap。移到component-browser-starter组件中
+
+2017/6/7
+
++ 添加velocity支持
