@@ -1,0 +1,9 @@
+{
+  "name": "tzg",
+  "description": "tzg",
+  "repository": "tzg",
+  "license": "BSD-2-Clause",
+  "scripts": {
+    "build": "echo '[framework-support] execute phase pacakge'"
+  }
+}

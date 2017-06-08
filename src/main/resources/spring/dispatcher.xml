@@ -48,8 +48,8 @@
     <!-- velocity support -->
     <bean id="velocityConfigurer"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/templates"/>
-        <property name="configLocation" value="classpath:properties/velocity.properties"/>
+        <property name="resourceLoaderPath" value="classpath:velocity"/>
+        <property name="configLocation" value="classpath:velocity/velocity.properties"/>
         <property name="velocityProperties">
             <props>
                 <prop key="foreach.count">loopCounter</prop>
