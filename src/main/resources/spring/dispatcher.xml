@@ -46,7 +46,7 @@
     </bean>
 
     <!-- velocity support -->
-    <bean id="velocityConfigurer"
+    <!-- <bean id="velocityConfigurer"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
         <property name="resourceLoaderPath" value="classpath:velocity"/>
         <property name="configLocation" value="classpath:velocity/velocity.properties"/>
@@ -72,7 +72,7 @@
         <property name="exposeSpringMacroHelpers" value="true"/>
         <property name="numberToolAttribute" value="numberTool"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
-    </bean>
+    </bean> -->
 
     <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
 
