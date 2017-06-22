@@ -46,33 +46,33 @@
     </bean>
 
     <!-- velocity support -->
-    <bean id="velocityConfigurer"
-          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="classpath:velocity"/>
-        <property name="configLocation" value="classpath:velocity/velocity.properties"/>
-        <property name="velocityProperties">
-            <props>
-                <prop key="foreach.count">loopCounter</prop>
-                <prop key="foreach.index">0</prop>
-                <prop key="foreach.hasNext">loopHasNext</prop>
-                <prop key="input.encoding">gbk</prop>
-                <prop key="output.encoding">gbk</prop>
-            </props>
-        </property>
-    </bean>
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
-        <property name="suffix" value=".jsp"/>
-        <property name="allowRequestOverride" value="true"/>
-        <property name="allowSessionOverride" value="true"/>
-        <property name="dateToolAttribute" value="dateTool"/>
-        <property name="layoutUrl" value="/layout/default.vm"/>
-        <property name="exposeRequestAttributes" value="true"/>
-        <property name="exposeSessionAttributes" value="true"/>
-        <property name="exposeSpringMacroHelpers" value="true"/>
-        <property name="numberToolAttribute" value="numberTool"/>
-        <property name="contentType" value="text/html;charset=UTF-8"/>
-    </bean>
+    <!--<bean id="velocityConfigurer"-->
+          <!--class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">-->
+        <!--<property name="resourceLoaderPath" value="classpath:velocity"/>-->
+        <!--<property name="configLocation" value="classpath:velocity/velocity.properties"/>-->
+        <!--<property name="velocityProperties">-->
+            <!--<props>-->
+                <!--<prop key="foreach.count">loopCounter</prop>-->
+                <!--<prop key="foreach.index">0</prop>-->
+                <!--<prop key="foreach.hasNext">loopHasNext</prop>-->
+                <!--<prop key="input.encoding">gbk</prop>-->
+                <!--<prop key="output.encoding">gbk</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="viewResolver"-->
+          <!--class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">-->
+        <!--<property name="suffix" value=".jsp"/>-->
+        <!--<property name="allowRequestOverride" value="true"/>-->
+        <!--<property name="allowSessionOverride" value="true"/>-->
+        <!--<property name="dateToolAttribute" value="dateTool"/>-->
+        <!--<property name="layoutUrl" value="/layout/default.vm"/>-->
+        <!--<property name="exposeRequestAttributes" value="true"/>-->
+        <!--<property name="exposeSessionAttributes" value="true"/>-->
+        <!--<property name="exposeSpringMacroHelpers" value="true"/>-->
+        <!--<property name="numberToolAttribute" value="numberTool"/>-->
+        <!--<property name="contentType" value="text/html;charset=UTF-8"/>-->
+    <!--</bean>-->
 
     <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
 
