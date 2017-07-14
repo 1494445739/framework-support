@@ -7,7 +7,7 @@
         <encoder>
             <pattern>
                 <![CDATA[
-                    %d{HH:mm:ss.SSS} [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
+                    %d{HH:mm:ss.SSS} [%X{clientID}] [%thread] %-5level %X{req.remoteHost} %X{req.requestURI} %logger{100}[%L] - %msg%n
                 ]]>
             </pattern>
         </encoder>
