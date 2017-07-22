@@ -30,10 +30,11 @@
         <!--     maxWait: 获取连接等待超时的时间，单位毫秒                                              -->
         <!--                                                                                        -->
         <!-- ====================================================================================== -->
-        <property name="initialSize" value="1"/>
-        <property name="minIdle" value="1"/>
-        <property name="maxActive" value="30"/>
+        <property name="initialSize" value="10"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxActive" value="10"/>
         <property name="maxWait" value="60000"/>
+        <property name="keepAlive" value="true"/>
 
         <!-- ====================================================================================== -->
         <!-- 间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒，有两个含义                          -->
@@ -44,7 +45,7 @@
         <property name="timeBetweenEvictionRunsMillis" value="60000"/>
 
         <!-- 一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="minEvictableIdleTimeMillis" value="900"/>
 
         <!-- ====================================================================================== -->
         <!-- 检测属性设置                                                                             -->
