@@ -12,7 +12,7 @@
     <bean id="txManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
-		<property name="nestedTransactionAllowed" value="true"/>
+        <property name="nestedTransactionAllowed" value="true"/>
     </bean>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
@@ -30,10 +30,11 @@
         <!--     maxWait: 获取连接等待超时的时间，单位毫秒                                              -->
         <!--                                                                                        -->
         <!-- ====================================================================================== -->
-        <property name="initialSize" value="1"/>
-        <property name="minIdle" value="1"/>
-        <property name="maxActive" value="30"/>
+        <property name="initialSize" value="10"/>
+        <property name="minIdle" value="10"/>
+        <property name="maxActive" value="10"/>
         <property name="maxWait" value="60000"/>
+        <property name="keepAlive" value="true"/>
 
         <!-- ====================================================================================== -->
         <!-- 间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒，有两个含义                          -->
@@ -41,10 +42,10 @@
         <!-- Destroy线程会检测连接的间隔时间                                                           -->
         <!-- testWhileIdle的判断依据，详细看下面testWhileIdle属性说明                                   -->
         <!-- ====================================================================================== -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="3000"/>
 
         <!-- 一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="minEvictableIdleTimeMillis" value="900"/>
 
         <!-- ====================================================================================== -->
         <!-- 检测属性设置                                                                             -->
@@ -58,7 +59,7 @@
         <!--                  于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效     -->
         <!--                                                                                        -->
         <!-- ====================================================================================== -->
-        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="validationQuery" value="SELECT 1"/>
         <property name="testOnBorrow" value="false"/>
         <property name="testOnReturn" value="false"/>
         <property name="testWhileIdle" value="true"/>
@@ -147,15 +148,15 @@
     <!--                     日志记录JDBC执行SQL的过滤器配置                            -->
     <!-- =========================================================================== -->
     <bean id="log-filter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
-        <property name="resultSetLogEnabled" value="false"/>
+        <property name="resultSetLogEnabled" value="true"/>
         <property name="statementExecutableSqlLogEnable" value="true"/>
-        <property name="connectionConnectAfterLogEnabled" value="false"/>
-        <property name="statementLogEnabled" value="false"/>
-        <property name="statementCloseAfterLogEnabled" value="false"/>
-        <property name="statementParameterSetLogEnabled" value="false"/>
-        <property name="statementPrepareAfterLogEnabled" value="false"/>
-        <property name="statementExecuteAfterLogEnabled" value="false"/>
-        <property name="resultSetCloseAfterLogEnabled" value="false"/>
+        <property name="connectionConnectAfterLogEnabled" value="true"/>
+        <property name="statementLogEnabled" value="true"/>
+        <property name="statementCloseAfterLogEnabled" value="true"/>
+        <property name="statementParameterSetLogEnabled" value="true"/>
+        <property name="statementPrepareAfterLogEnabled" value="true"/>
+        <property name="statementExecuteAfterLogEnabled" value="true"/>
+        <property name="resultSetCloseAfterLogEnabled" value="true"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
