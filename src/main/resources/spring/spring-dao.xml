@@ -28,10 +28,13 @@
         <!--     minIdle: 连接池最小空闲连接数                                                        -->
         <!--   maxActive: 连接池最大使用连接数                                                        -->
         <!--     maxWait: 获取连接等待超时的时间，单位毫秒                                              -->
+        <!--   keepAlive: 保持长连接。当minIdle中的连接时间大于minEvictableIdleTimeMillis时，则会保持长  -->
+        <!--              连接。但是需要注意，此属性必须跟动态参数druid.mysql.usePingMethod=false一起使  -->
+        <!--              用。不仅如此，此功能也是在druid 1.0.27版本以上才提供支持                       -->
         <!--                                                                                        -->
         <!-- ====================================================================================== -->
-        <property name="initialSize" value="10"/>
-        <property name="minIdle" value="10"/>
+        <property name="initialSize" value="1"/>
+        <property name="minIdle" value="1"/>
         <property name="maxActive" value="10"/>
         <property name="maxWait" value="60000"/>
         <property name="keepAlive" value="true"/>
@@ -42,10 +45,10 @@
         <!-- Destroy线程会检测连接的间隔时间                                                           -->
         <!-- testWhileIdle的判断依据，详细看下面testWhileIdle属性说明                                   -->
         <!-- ====================================================================================== -->
-        <property name="timeBetweenEvictionRunsMillis" value="3000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
 
         <!-- 一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="900"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
 
         <!-- ====================================================================================== -->
         <!-- 检测属性设置                                                                             -->
