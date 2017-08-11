@@ -15,7 +15,7 @@
 
     <context:component-scan base-package="${spring.scan.pkg:com.tzg}"/>
 
-    <util:properties id="props" location="classpath:properties/env*.properties"/>
+    <util:properties id="props" location="classpath*:properties/env*.properties"/>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
