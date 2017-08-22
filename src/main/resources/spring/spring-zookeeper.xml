@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="configProfile" class="com.dangdang.config.service.zookeeper.ZookeeperConfigProfile">
+        <constructor-arg name="connectStr" value="#{sysProp['zookeeper.hosts']}"/>
+        <constructor-arg name="rootNode" value="#{sysProp['rootNode']}"/>
+        <constructor-arg name="version" value="#{sysProp['version']}"/>
+    </bean>
+
+    <bean id="dbConfig" class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"
+          c:configProfile-ref="configProfile" c:node="db" p:client-ref="zkClient"/>
+
+    <bean id="dubboConfig" class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"
+          c:configProfile-ref="configProfile" c:node="dubbo" p:client-ref="zkClient"/>
+
+    <!-- 重连策略-->
+    <bean id="retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
+        <!-- 间隔时间基数-->
+        <constructor-arg index="0" value="100"/>
+        <!-- 重连策略  -->
+        <constructor-arg index="1" value="3"/>
+    </bean>
+    <!-- zkClient  -->
+    <bean id="zkClient" class="org.apache.curator.framework.CuratorFrameworkFactory"
+          factory-method="newClient" init-method="start">
+        <constructor-arg index="0" value="#{sysProp['zookeeper.hosts']}"/>
+        <!-- sessionTimeoutMs会话超时时间，单位为毫秒。默认是60000ms 	-->
+        <constructor-arg index="1" value="5000"/>
+        <!-- connectionTimeoutMs连接创建超时时间，单位毫秒，默认15000ms -->
+        <constructor-arg index="2" value="3000"/>
+        <constructor-arg index="3" ref="retryPolicy"/>
+    </bean>
+
+</beans>

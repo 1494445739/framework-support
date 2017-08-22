@@ -17,9 +17,9 @@
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
 
-        <property name="url" value="#{props['jdbc.url']}"/>
-        <property name="username" value="#{props['jdbc.username']}"/>
-        <property name="password" value="#{props['jdbc.password']}"/>
+        <property name="url" value="#{dbConfig['jdbc.url']}"/>
+        <property name="username" value="#{dbConfig['jdbc.username']}"/>
+        <property name="password" value="#{dbConfig['jdbc.password']}"/>
 
         <!-- ====================================================================================== -->
         <!-- 配置初始化大小、最小、最大                                                                -->
@@ -105,7 +105,7 @@
         </property>
 
         <property name="connectionProperties"
-                  value="clientEncoding=UTF-8;config.decrypt=true;config.decrypt.key=#{props['jdbc.publicKey']}"/>
+                  value="clientEncoding=UTF-8;config.decrypt=true;config.decrypt.key=#{dbConfig['jdbc.publicKey']}"/>
     </bean>
 
     <!-- =========================================================================== -->
