@@ -37,7 +37,8 @@ public class JsonMappingExceptionResolver extends SimpleMappingExceptionResolver
         response.setHeader( "Cache-Control", "no-cache, must-revalidate" );
 
         try {
-            String errJson = "{\"status\":\"error\", \"data\": \"" + ex.getLocalizedMessage() + "\"}";
+            //            String errJson = "{\"status\":\"error\", \"data\": \"" + ex.getLocalizedMessage() + "\"}";
+            String errJson = "{\"status\":\"error\", \"data\": \"" + "请联系系统管理员" + "\"}";
             response.getWriter().write( errJson );
         } catch ( IOException e ) {
             e.printStackTrace();
