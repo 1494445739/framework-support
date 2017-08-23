@@ -186,6 +186,8 @@
     <logger name="druid.sql.Statement" level="${log.root.level:-INFO}"/>
     <logger name="com.alibaba.dubbo" level="${log.root.level:-INFO}"/>
 
+    <logger name="org.apache.zookeeper" level="${log.root.level:-INFO}"/>
+
     <root level="${log.root.level:-INFO}">
         <appender-ref ref="stdout"/>
         <appender-ref ref="file-all"/>
