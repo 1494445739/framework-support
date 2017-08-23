@@ -108,6 +108,9 @@
         <property name="defaultErrorView" value="common/error"></property>
     </bean>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
     <import resource="classpath*:/spring/springmvc-*.xml"/>
+
 
 </beans>
