@@ -9,6 +9,7 @@ import com.tzg.tool.support.properties.PropUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.impl.StaticLoggerBinder;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -35,7 +36,8 @@ public class LogbackListener implements ServletContextListener {
 
         try {
 
-            System.setProperty( "log.root.level", PropUtil.get( LOG_ROOT_LEVEL ) );
+            String logLevel = PropUtil.get( LOG_ROOT_LEVEL );
+            System.setProperty( "log.root.level", StringUtils.isEmpty( logLevel ) ? "DEBUG" : logLevel );
 
             LoggerContext loggerContext = ( LoggerContext ) StaticLoggerBinder.getSingleton().getLoggerFactory();
             loggerContext.reset();

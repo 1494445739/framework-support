@@ -212,4 +212,17 @@
 
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>dev-release</id>
+            <name>dev-nexus-release</name>
+            <url>http://dev.maven.com:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>dev-nexus-snapshots</id>
+            <name>dev-nexus-snapshot</name>
+            <url>http://dev.maven.com:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

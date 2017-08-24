@@ -19,7 +19,7 @@
 
         <property name="url" value="#{dbConfig['jdbc.url']}"/>
         <property name="username" value="#{dbConfig['jdbc.username']}"/>
-        <property name="password" value="#{dbConfig['jdbc.password']}"/>
+        <property name="password" value="#{dbConfig['encrypt.password']}"/>
 
         <!-- ====================================================================================== -->
         <!-- 配置初始化大小、最小、最大                                                                -->
@@ -105,7 +105,7 @@
         </property>
 
         <property name="connectionProperties"
-                  value="clientEncoding=UTF-8;config.decrypt=true;config.decrypt.key=#{dbConfig['jdbc.publicKey']}"/>
+                  value="clientEncoding=UTF-8;config.decrypt=true;config.decrypt.key=#{dbConfig['decrypt.key']}"/>
     </bean>
 
     <!-- =========================================================================== -->
