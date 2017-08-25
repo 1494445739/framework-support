@@ -18,6 +18,9 @@
     <bean id="dubboConfig" class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"
           c:configProfile-ref="configProfile" c:node="dubbo" p:client-ref="zkClient"/>
 
+    <bean id="redisConf" class="com.dangdang.config.service.zookeeper.ZookeeperConfigGroup"
+          c:configProfile-ref="configProfile" c:node="redis" p:client-ref="zkClient"/>
+
     <!-- 重连策略-->
     <bean id="retryPolicy" class="org.apache.curator.retry.ExponentialBackoffRetry">
         <!-- 间隔时间基数-->
