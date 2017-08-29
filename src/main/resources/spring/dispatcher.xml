@@ -24,14 +24,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
-        <!--<property name="messageConverters">-->
-            <!--<list>-->
-                <!--<ref bean="MappingJackson2HttpMessageConverter"/>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
-
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
@@ -39,24 +31,25 @@
             </list>
         </property>
     </bean>
-
     <bean id="MappingJackson2HttpMessageConverter"
-          class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+          class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4">
         <property name="supportedMediaTypes">
             <list>
                 <value>application/json;charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value><!-- 避免IE出现下载JSON文件的情况 -->
             </list>
         </property>
-        <!-- fastjson会自动过滤null值禁用此特性 如需使用此特性方法上加注解 -->
-        <property name="features">
-            <array value-type="com.alibaba.fastjson.serializer.SerializerFeature">
-                <value>DisableCircularReferenceDetect</value>
-                <value>WriteMapNullValue</value>
-                <value>WriteNullNumberAsZero</value>
-                <value>WriteNullStringAsEmpty</value>
-                <value>WriteNullBooleanAsFalse</value>
-                <value>WriteNullListAsEmpty</value>
-            </array>
+        <property name="fastJsonConfig">
+            <bean class="com.alibaba.fastjson.support.config.FastJsonConfig">
+                <property name="features">
+                    <list>
+                        <value>AllowArbitraryCommas</value>
+                        <value>AllowUnQuotedFieldNames</value>
+                        <value>DisableCircularReferenceDetect</value>
+                    </list>
+                </property>
+                <property name="dateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+            </bean>
         </property>
     </bean>
 
@@ -71,7 +64,7 @@
     <!-- 定义springmvc全局异常处理 -->
     <bean class="com.tzg.framework.support.config.spring.JsonMappingExceptionResolver">
         <!-- 定义默认的异常处理页面，当该异常类型的注册时使用 -->
-        <property name="defaultErrorView" value="common/error"></property>
+        <property name="defaultErrorView" value="common/error"/>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
