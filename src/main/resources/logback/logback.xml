@@ -156,7 +156,7 @@
     </appender>
 
     <logger name="ch.qos.logback.classic" level="${log.root.level:-INFO}"/>
-    <logger name="in ch.qos.logback.core.joran.action.AppenderRefAction" level="${log.root.level:-INFO}"/>
+    <logger name="ch.qos.logback.core.joran.action.AppenderRefAction" level="${log.root.level:-INFO}"/>
 
     <logger name="java.sql" level="${log.root.level:-INFO}"/>
     <logger name="jdbc" level="${log.root.level:-INFO}"/>
